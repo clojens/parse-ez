@@ -90,7 +90,7 @@ automatically trims whitespace after successfully applying a parse function.
 This means that the newline at the end of line would be consumed after reading
 the last field value and the `sep-by` would be unable to match the end-of-line
 which is the record-separator in this case.  So, we will disable the newline
-trimming functionality using the `no-trim-nl` combinator.
+trimming functionality using the `no-trim` combinator.
 
 ```clojure
 (defn csv [sep] 
