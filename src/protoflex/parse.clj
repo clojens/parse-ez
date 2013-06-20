@@ -753,8 +753,7 @@
   at the end of execution of the specified function."
   [parse-fn] (let [wsre (get-opt :ws-regex)]
          (set-opt :ws-regex #"[ \t]+")
-         (let [result (parse-fn)]
-           (set-opt :ws-regex wsre)
+         (let [result (try (parse-fn) (finally (set-opt :ws-regex wsre)))]
            result)))
 
 (defmacro no-trim-nl_
