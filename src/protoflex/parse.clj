@@ -357,6 +357,10 @@
      result
      )))
 
+(defn sep-rest [parse-fn sep-fn]
+  (let [rst (multi* #(series sep-fn parse-fn))]
+    (reduce (fn [a e] (conj a (e 1))) [] rst)))
+
 (defn sep-by* 
   "Differs from sep-by in that it allows zero matches of parse-fn before stop-fn;
    Unlike sep-by, stop-fn must match -- not optional."
