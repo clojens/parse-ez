@@ -94,14 +94,14 @@ trimming functionality using the `no-trim-nl` combinator.
 
 ```clojure
 (defn csv [sep] 
-    (multi* (fn [] (no-trim-nl #(csv-1 sep)))))
+    (multi* (fn [] (no-trim #(csv-1 sep)))))
 ```
 
 Alternatively, you can express the above function a bit more easily using the macro versions of combinators introduced in Version 0.3.0 as follows:
 
 ```clojure
 (defn csv [sep] 
-    (multi* (no-trim-nl_ (csv-1 sep))))
+    (multi* (no-trim_ (csv-1 sep))))
 ```
 
 Now, let us try out our csv parser. First let us define a couple of test 
