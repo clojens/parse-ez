@@ -357,6 +357,15 @@
      result
      )))
 
+(defn sep-by* 
+  "Differs from sep-by in that it allows zero matches of parse-fn before stop-fn;
+   Unlike sep-by, stop-fn must match -- not optional."
+  [parse-fn sep-fn stop-fn]
+  (if-let [fst (attempt parse-fn)]
+    (let [rst (sep-rest parse-fn sep-fn), _ (stop-fn)]
+      (into [fst] rst)) ; then
+    (do (stop-fn) nil))) ; else
+
 (defn any-string
   "Reads a single-quoted or double-quoted or a plain-string that is followed
   by the specified separator sep; the separator is not part of the returned
@@ -707,23 +716,19 @@
   "Executes the provided body with auto-trim option set to true.  The earlier
   value of the auto-trim option is restored after executing the body."
   [& body]
-  (let [at (get-opt :auto-trim)]
-    `(do
+    `(let [at# (get-opt :auto-trim)]
        (set-opt :auto-trim true)
-       (let [ret# (do ~@body)]
-         (set-opt :auto-trim ~at)
-         ret# ))))
+       (let [ret# (try (do ~@body) (finally (set-opt :auto-trim at#)))]
+         ret# )))
 
 (defmacro with-trim-off
   "Executes the provided body with auto-trim option set to false.  The earlier
   value of the auto-trim option is restored after executing the body."
   [& body]
-  (let [at (get-opt :auto-trim)]
-    `(do
+    `(let [at# (get-opt :auto-trim)]
        (set-opt :auto-trim false)
-       (let [ret# (do ~@body)]
-         (set-opt :auto-trim ~at)
-         ret# ))))
+       (let [ret# (try (do ~@body) (finally (set-opt :auto-trim at#)))]
+         ret# )))
 
 (defn no-trim
   "Similar to with-trim-off, but takes a function as a parameter instead of
