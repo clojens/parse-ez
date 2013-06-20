@@ -1,8 +1,11 @@
 /pom.xml
-*jar
+*.jar
+*.class
 /lib
+/bin
 /classes
 /native
+/target
 /.lein-failures
 /checkouts
 /.lein-deps-sum
@@ -10,3 +13,10 @@
 /README.md.html
 /ReleaseNotes.md.html
 /doc.sh
+.classpath
+.project
+.settings
+README.html
+api-doc.zip
+pom.xml.asc
+
