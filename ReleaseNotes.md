@@ -12,7 +12,7 @@ perform parsing and return the parse results, the newly added macros take
 parse expressions as arguments and return parse functions (to be passed 
 to other parse combinators).  These macros are named the same as the 
 corresponding parse combinators but with an underscore ("\_") suffix. For example
-the macro version of "any" is named "any_".
+the macro version of `any` is named `any_`.
 
 ### Miscellaneous Changes
 
@@ -22,3 +22,8 @@ The following minor changes/additions are made in the current release:
   to patterns typically passed using #"..." forms).  However, if you use
   strings, you would have to escape backslashes as you would do in Java.
 
+## Version 0.3.5
+
+- added `sep-by*` function with a slightly different behavior from `sep-by`
+- bug fixes for with-trim-on and with-trim-off; they were not properly resetting
+  the auto-trim option to original value.
